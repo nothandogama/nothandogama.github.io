@@ -277,7 +277,7 @@ export const conferences = [
 
 export const contact = {
   heading: "Let's connect",
-  line: "Open to bioinformatics and computational biology roles, and to research and PhD opportunities.",
+  line: "Open to bioinformatics and computational biology roles.",
   location: "Cape Town, South Africa",
   phoneMasked: "081 873 ••••",
   phoneNote: "full number on request",
