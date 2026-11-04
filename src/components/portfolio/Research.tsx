@@ -28,8 +28,8 @@ function HetGraph() {
             x2={x2}
             y2={y2}
             stroke="var(--secondary)"
-            strokeWidth="0.6"
-            opacity="0.3"
+            strokeWidth="0.8"
+            opacity="0.5"
           />
         )),
       )}

@@ -56,9 +56,9 @@ export function Section({
 /** A tiny ATGC sequence strip used as a section divider. */
 export function SequenceDivider() {
   const bases = "ATGCGGATCTTAGCCGATACGTTAGCACGGATCCGTATTGCAAGCTTGACCGTAAGGCTTAC";
-  const colors = ["text-primary", "text-violet", "text-muted-foreground", "text-foreground"];
+  const colors = ["text-primary", "text-violet", "text-status", "text-foreground"];
   return (
-    <div aria-hidden className="select-none overflow-hidden py-1 opacity-25">
+    <div aria-hidden className="select-none overflow-hidden py-1 opacity-75 [text-shadow:0_0_6px_currentColor]">
       <p className="whitespace-nowrap font-mono text-[10px] tracking-[0.4em]">
         {bases.split("").map((b, i) => (
           <span key={i} className={colors[i % colors.length]}>
@@ -74,8 +74,8 @@ export function SequenceDivider() {
 export function Chip({ children, tone = "pink" }: { children: ReactNode; tone?: "pink" | "violet" }) {
   const toneClass =
     tone === "pink"
-      ? "border-primary/25 bg-primary/10 text-foreground hover:border-primary/60 hover:shadow-[0_0_18px_-6px_var(--primary)]"
-      : "border-violet/25 bg-violet/10 text-foreground hover:border-violet/60 hover:shadow-[0_0_18px_-6px_var(--secondary)]";
+      ? "border-primary/45 bg-primary/20 text-foreground hover:border-primary hover:shadow-[0_0_18px_-6px_var(--primary)]"
+      : "border-violet/45 bg-violet/20 text-foreground hover:border-violet hover:shadow-[0_0_18px_-6px_var(--secondary)]";
   return (
     <span
       className={`rounded-md border px-2.5 py-1 font-mono text-xs transition-all ${toneClass}`}

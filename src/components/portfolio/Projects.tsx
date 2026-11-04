@@ -82,7 +82,7 @@ function HeatmapMotif() {
 export default function Projects() {
   return (
     <Section id="projects" index="04" slug="projects" title="Projects">
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {projects.map((p, i) => (
           <Reveal key={p.title} delay={i * 80}>
             <article className="surface glow-hover flex h-full flex-col p-6">

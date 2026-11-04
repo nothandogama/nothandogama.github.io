@@ -66,7 +66,7 @@ export default function LabBench() {
         <div className="surface p-6">
           <label className="block">
             <span className="sr-only">DNA sequence</span>
-            <span className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 focus-within:border-primary/60">
+            <span className="flex items-center gap-2 rounded-lg border border-border bg-black/25 px-3 py-2 focus-within:border-primary/60">
               <Terminal className="h-4 w-4 shrink-0 text-primary" />
               <input
                 value={raw}

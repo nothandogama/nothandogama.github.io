@@ -9,7 +9,7 @@ export default function HeroSilhouette() {
       aria-hidden
       viewBox="0 0 420 520"
       fill="none"
-      className="pointer-events-none absolute right-0 top-1/2 hidden h-[80%] max-h-[520px] -translate-y-1/2 opacity-[0.15] lg:block"
+      className="pointer-events-none absolute right-0 top-1/2 hidden h-[80%] max-h-[520px] -translate-y-1/2 opacity-55 drop-shadow-[0_0_6px_var(--primary)] lg:block"
       stroke="var(--primary)"
       strokeWidth="1.5"
       strokeLinecap="round"

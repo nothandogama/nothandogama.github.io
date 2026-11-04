@@ -8,12 +8,17 @@ import Skills from "@/components/portfolio/Skills";
 import LabBench from "@/components/portfolio/LabBench";
 import Education from "@/components/portfolio/Education";
 import Conferences from "@/components/portfolio/Conferences";
-import Contact from "@/components/portfolio/Contact";
+import Contact, { Footer } from "@/components/portfolio/Contact";
+import NetworkCanvas from "@/components/portfolio/NetworkCanvas";
 import { SequenceDivider } from "@/components/portfolio/ui";
+import { useGlassSheen } from "@/components/portfolio/hooks";
 
 export default function App() {
+  useGlassSheen();
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
+      <NetworkCanvas />
       <Nav />
       <Hero />
       <main className="mx-auto max-w-[1100px] px-5">
@@ -35,6 +40,7 @@ export default function App() {
         <SequenceDivider />
         <Contact />
       </main>
+      <Footer />
     </div>
   );
 }

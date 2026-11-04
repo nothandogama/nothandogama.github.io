@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system: "Lab terminal, in pink"
- * Dark near-black purple background, hot pink primary, violet secondary.
- * All colors in oklch, all tokens registered in @theme inline.
+ * Design system: "Fluorescence"
+ * Glowing plum/magenta background (like a stained confocal image), hot pink
+ * primary, violet secondary, frosted-glass cards. Tokens registered in @theme inline.
  */
 
 @theme inline {
@@ -46,37 +46,38 @@
 
 :root {
   --radius: 0.75rem;
-  /* #0C0A14 */
-  --background: oklch(0.113 0.021 300);
-  --foreground: oklch(0.932 0.012 292);
-  /* #151220 */
-  --card: oklch(0.176 0.026 297);
-  --card-foreground: oklch(0.932 0.012 292);
-  --popover: oklch(0.176 0.026 297);
-  --popover-foreground: oklch(0.932 0.012 292);
-  /* #FF4FA3 hot pink */
-  --primary: oklch(0.693 0.229 357);
-  --primary-foreground: oklch(0.145 0.02 300);
-  /* #9D6BFF violet */
-  --secondary: oklch(0.65 0.204 297);
-  --secondary-foreground: oklch(0.145 0.02 300);
-  --muted: oklch(0.225 0.03 297);
-  /* #9A94B3 */
-  --muted-foreground: oklch(0.658 0.031 291);
-  --accent: oklch(0.225 0.03 297);
-  --accent-foreground: oklch(0.932 0.012 292);
+  /* #2A0F4D deep plum (solid fallback; the visible backdrop is the fluorescent stage) */
+  --background: #2a0f4d;
+  /* #FFF3FB */
+  --foreground: #fff3fb;
+  /* translucent white, so cards frost whatever glows behind them */
+  --card: rgb(255 255 255 / 0.08);
+  --card-foreground: #fff3fb;
+  --popover: #3b1366;
+  --popover-foreground: #fff3fb;
+  /* #FF4FAE hot pink */
+  --primary: #ff4fae;
+  --primary-foreground: #2a0b3a;
+  /* #C4A3FF violet, lifted so it reads on plum */
+  --secondary: #c4a3ff;
+  --secondary-foreground: #2a0b3a;
+  --muted: rgb(255 255 255 / 0.1);
+  /* #E6CFEE */
+  --muted-foreground: #e6cfee;
+  --accent: rgb(255 255 255 / 0.1);
+  --accent-foreground: #fff3fb;
   --destructive: oklch(0.63 0.22 25);
   --destructive-foreground: oklch(0.97 0.01 300);
-  /* #2A2440 */
-  --border: oklch(0.283 0.045 296);
-  --input: oklch(0.283 0.045 296);
-  --ring: oklch(0.693 0.229 357);
-  /* #5EEAD4 soft cyan, status dots only */
-  --status: oklch(0.867 0.125 178);
+  --border: rgb(255 255 255 / 0.2);
+  --input: rgb(255 255 255 / 0.2);
+  --ring: #ff4fae;
+  /* #5EFFD8 fluorescent mint, status dots and accents */
+  --status: #5effd8;
 
   --gradient-accent: linear-gradient(90deg, var(--primary), var(--secondary));
-  --glow-pink: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent),
-    0 8px 30px -12px color-mix(in oklab, var(--primary) 45%, transparent);
+  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 20px 50px -25px rgb(15 0 35 / 0.7);
+  --glow-pink: 0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
+    0 10px 40px -12px color-mix(in oklab, var(--primary) 55%, transparent);
 }
 
 @layer base {
@@ -103,10 +104,34 @@
 
 /* --- Reusable design-system utilities --- */
 
+/* Frosted glass card. --mx/--my are set by useGlassSheen for a soft pointer highlight. */
 @utility surface {
-  background-color: var(--card);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.14),
+    rgb(255 255 255 / 0.05) 60%,
+    rgb(255 255 255 / 0.08)
+  );
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      380px circle at var(--mx, -500px) var(--my, -500px),
+      rgb(255 255 255 / 0.14),
+      transparent 50%
+    );
+  }
 }
 
 @utility glow-hover {
@@ -115,9 +140,42 @@
     border-color 300ms ease,
     transform 300ms ease;
   &:hover {
-    border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
-    box-shadow: var(--glow-pink);
+    border-color: color-mix(in oklab, var(--primary) 60%, var(--border));
+    box-shadow: var(--glass-shadow), var(--glow-pink);
   }
+}
+
+/* Frosted floating pill for the nav and its mobile menu. */
+@utility glass-pill {
+  background-color: rgb(60 20 100 / 0.32);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Two intertwined wavy strands (a stretched double helix), coloured by the
+   element's background and drifting slowly downwards. */
+@utility helix-line {
+  --helix: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 32' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M7 0C14 8 14 8 7 16S0 24 7 32'/%3E%3Cpath d='M7 0C0 8 0 8 7 16S14 24 7 32' opacity='.55'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--helix);
+  mask-image: var(--helix);
+  -webkit-mask-size: 14px 32px;
+  mask-size: 14px 32px;
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  animation: helix-drift 3s linear infinite;
+}
+
+@keyframes helix-drift {
+  to {
+    -webkit-mask-position: 0 32px;
+    mask-position: 0 32px;
+  }
+}
+
+@utility glow-text {
+  text-shadow: 0 0 36px rgb(255 80 180 / 0.55);
 }
 
 @utility gradient-line {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, Github, Linkedin } from "lucide-react";
 import { hero, links } from "@/data/content";
-import NetworkCanvas from "./NetworkCanvas";
 import HeroSilhouette from "./HeroSilhouette";
 import { LinkButton } from "./ui";
 import { useReducedMotion } from "./hooks";
@@ -36,15 +35,13 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[88vh] items-center overflow-hidden border-b border-border"
     >
-      <NetworkCanvas />
       <HeroSilhouette />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
 
       <div className="relative mx-auto w-full max-w-[1100px] px-5 py-24">
         <p className="font-mono text-sm text-primary">{hero.prompt}</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
+        <h1 className="glow-text mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
           {typed}
-          <span className="ml-1 inline-block w-[2px] animate-pulse bg-primary align-middle text-transparent">
+          <span className="ml-1 inline-block w-[2px] animate-pulse bg-primary align-middle text-transparent shadow-[0_0_10px_var(--primary)]">
             |
           </span>
         </h1>

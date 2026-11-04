@@ -37,7 +37,29 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
   return { ref, shown };
 }
 
-/** Counts from 0 to `to` once `start` is true. */
+/** Moves a soft light across every glass `.surface` card, following the pointer. */
+export function useGlassSheen() {
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    let raf = 0;
+    const onMove = (e: PointerEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        document.querySelectorAll<HTMLElement>(".surface").forEach((el) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          el.style.setProperty("--my", `${e.clientY - r.top}px`);
+        });
+      });
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+    };
+  }, []);
+}
+
 /** Highlights the nav link of the section currently in view. */
 export function useActiveSection(ids: readonly string[]) {
   const [active, setActive] = useState(ids[0] ?? "");
