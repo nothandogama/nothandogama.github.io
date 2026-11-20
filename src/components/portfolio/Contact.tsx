@@ -53,18 +53,16 @@ const footerLink =
 
 /**
  * Transparent full-width footer, rendered outside <main> so its rule spans the page.
- * Closes the page the way a GenBank record ends, with `//`.
+ * Both rows share one vertical padding.
  */
 export function Footer() {
-  const role = hero.subtitle.split(" · ")[0];
   return (
     <footer className="border-t border-hairline">
-      <div className="mx-auto grid max-w-[1100px] gap-8 px-5 py-12 md:grid-cols-[1fr_auto] md:items-end">
+      <div className="mx-auto grid max-w-[1100px] gap-6 px-5 py-8 md:grid-cols-[1fr_auto] md:items-center">
         <div>
-          <p className="font-mono text-xs text-primary">//</p>
-          <p className="mt-3 text-base font-medium">Nothando Gama</p>
+          <p className="text-base font-medium">Nothando Gama</p>
           <p className="mt-1 text-sm text-faint">
-            {role} · {contact.location}
+            {hero.role} · {contact.location}
           </p>
         </div>
 
@@ -101,7 +99,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-hairline">
-        <div className="mx-auto flex max-w-[1100px] flex-col gap-1 px-5 py-5 font-mono text-xs text-faint sm:flex-row sm:justify-between">
+        <div className="mx-auto flex max-w-[1100px] flex-col gap-1 px-5 py-8 font-mono text-xs text-faint sm:flex-row sm:justify-between">
           <p>{contact.footer}</p>
           <p className="opacity-80">{contact.footerNote}</p>
         </div>

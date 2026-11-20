@@ -17,10 +17,17 @@ export const nav = [
 export const hero = {
   prompt: "$ whoami",
   name: "Nothando Gama",
-  subtitle: "Bioinformatician · Computational Biology · Machine Learning for Omics",
+  role: "Bioinformatician",
+  headline:
+    "Bioinformatician using graph neural networks to find miRNA\u2060–\u2060mRNA regulatory interactions in breast cancer",
   sentence:
-    "MSc Computational Health Informatics candidate at the University of Cape Town, using graph neural networks to uncover regulatory interactions in breast cancer.",
-  status: "Currently: writing up my MSc dissertation · open to opportunities",
+    "Computational biology and machine learning for omics, from raw sequencing data on HPC through to biological interpretation.",
+  figureCaption: "Fig. 1 · miRNA–mRNA graph with one predicted interaction",
+  facts: [
+    { label: "Studying", value: "MSc Computational Health Informatics, UCT" },
+    { label: "Presented", value: "SASBI 2026" },
+    { label: "Now", value: "Writing up my dissertation · open to opportunities", live: true },
+  ],
 };
 
 export const links = {

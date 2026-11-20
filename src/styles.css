@@ -140,6 +140,28 @@
   mask-repeat: repeat-y;
 }
 
+/* One-time stroke draw for SVG paths that set pathLength="1". */
+@utility draw-in {
+  stroke-dasharray: 1;
+  animation: draw-in 1400ms var(--ease) backwards;
+}
+
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@utility fade-in {
+  animation: fade-in 400ms var(--ease) backwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Fade-up reveal on scroll */
 @utility reveal {
   opacity: 0;
