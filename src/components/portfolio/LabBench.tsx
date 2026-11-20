@@ -66,8 +66,8 @@ export default function LabBench() {
         <div className="surface p-6">
           <label className="block">
             <span className="sr-only">DNA sequence</span>
-            <span className="flex items-center gap-2 rounded-lg border border-border bg-black/25 px-3 py-2 focus-within:border-primary/60">
-              <Terminal className="h-4 w-4 shrink-0 text-primary" />
+            <span className="flex items-center gap-2 rounded-lg border border-hairline bg-black/25 px-3 py-2 transition-colors focus-within:border-primary/60">
+              <Terminal className="h-4 w-4 shrink-0 text-faint" strokeWidth={1.5} />
               <input
                 value={raw}
                 maxLength={MAX + 20}
@@ -79,7 +79,7 @@ export default function LabBench() {
             </span>
           </label>
           {hasInvalid && (
-            <p className="mt-2 font-mono text-[11px] text-violet">
+            <p className="mt-2 font-mono text-xs text-faint">
               Only A, T, G and C are used — other characters are ignored.
             </p>
           )}
@@ -90,7 +90,7 @@ export default function LabBench() {
                 key={ex.label}
                 type="button"
                 onClick={() => setRaw(ex.seq)}
-                className="rounded-md border border-border px-3 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+                className="rounded-md border border-hairline px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-hairline-strong hover:text-foreground"
               >
                 {ex.label}
               </button>
@@ -98,28 +98,28 @@ export default function LabBench() {
             <button
               type="button"
               onClick={() => setRaw(randomSeq())}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+              className="inline-flex items-center gap-1.5 rounded-md border border-hairline px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-hairline-strong hover:text-foreground"
             >
-              <Dice5 className="h-3.5 w-3.5" />
+              <Dice5 className="h-3.5 w-3.5" strokeWidth={1.5} />
               Random
             </button>
           </div>
 
           <div className="mt-6 space-y-4">
             <div>
-              <p className="font-mono text-[11px] tracking-widest text-primary">DNA</p>
+              <p className="font-mono text-xs text-faint">DNA</p>
               <p className="mt-1 overflow-x-auto whitespace-nowrap font-mono text-xs tracking-[0.2em] text-foreground">
                 {dna || "—"}
               </p>
             </div>
             <div>
-              <p className="font-mono text-[11px] tracking-widest text-primary">mRNA</p>
+              <p className="font-mono text-xs text-faint">mRNA</p>
               <p className="mt-1 overflow-x-auto whitespace-nowrap font-mono text-xs tracking-[0.2em] text-violet">
                 {mrna || "—"}
               </p>
             </div>
             <div>
-              <p className="font-mono text-[11px] tracking-widest text-primary">Protein</p>
+              <p className="font-mono text-xs text-faint">Protein</p>
               <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
                 {chips.length === 0 && (
                   <p className="font-mono text-xs text-muted-foreground">
@@ -133,19 +133,19 @@ export default function LabBench() {
                       c.kind === "start"
                         ? "border-primary/60 bg-primary/15"
                         : c.kind === "stop"
-                          ? "border-violet/60 bg-violet/15"
-                          : "border-border bg-muted/40"
+                          ? "border-hairline-strong bg-white/10"
+                          : "border-hairline bg-white/5"
                     }`}
                   >
                     <p className="font-mono text-xs text-foreground">{c.codon}</p>
-                    <p className="font-mono text-[10px] text-muted-foreground">{c.aa}</p>
+                    <p className="font-mono text-[11px] text-faint">{c.aa}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <p className="mt-5 font-mono text-[11px] text-muted-foreground">{labBench.caption}</p>
+          <p className="mt-6 font-mono text-xs text-faint">{labBench.caption}</p>
         </div>
       </Reveal>
     </Section>

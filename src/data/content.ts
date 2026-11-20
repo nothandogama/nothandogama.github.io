@@ -276,11 +276,11 @@ export const conferences = [
 ];
 
 export const contact = {
-  heading: "Let's connect",
+  heading: "Get in touch",
   line: "Open to bioinformatics and computational biology roles.",
   location: "Cape Town, South Africa",
   phoneMasked: "081 873 ••••",
   phoneNote: "full number on request",
   footer: "© 2026 Nothando Gama",
-  footerNote: "Built with curiosity and a lot of pipelines.",
+  footerNote: "Built with curiosity and a lot of pipelines",
 };

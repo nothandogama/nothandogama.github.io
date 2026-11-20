@@ -11,11 +11,8 @@ import Conferences from "@/components/portfolio/Conferences";
 import Contact, { Footer } from "@/components/portfolio/Contact";
 import NetworkCanvas from "@/components/portfolio/NetworkCanvas";
 import { SequenceDivider } from "@/components/portfolio/ui";
-import { useGlassSheen } from "@/components/portfolio/hooks";
 
 export default function App() {
-  useGlassSheen();
-
   return (
     <div className="min-h-screen">
       <NetworkCanvas />

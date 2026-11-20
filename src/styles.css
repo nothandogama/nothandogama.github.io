@@ -42,6 +42,8 @@
   --color-ring: var(--ring);
   --color-status: var(--status);
   --color-violet: var(--secondary);
+  --color-faint: var(--faint);
+  --color-hairline: var(--hairline);
 }
 
 :root {
@@ -62,8 +64,10 @@
   --secondary: #c4a3ff;
   --secondary-foreground: #2a0b3a;
   --muted: rgb(255 255 255 / 0.1);
-  /* #E6CFEE */
+  /* #E6CFEE body text */
   --muted-foreground: #e6cfee;
+  /* #B9A3CC meta, captions and icons */
+  --faint: #b9a3cc;
   --accent: rgb(255 255 255 / 0.1);
   --accent-foreground: #fff3fb;
   --destructive: oklch(0.63 0.22 25);
@@ -74,20 +78,22 @@
   /* #5EFFD8 fluorescent mint, status dots and accents */
   --status: #5effd8;
 
-  --gradient-accent: linear-gradient(90deg, var(--primary), var(--secondary));
-  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 20px 50px -25px rgb(15 0 35 / 0.7);
-  --glow-pink: 0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
-    0 10px 40px -12px color-mix(in oklab, var(--primary) 55%, transparent);
+  --hairline: rgb(255 243 251 / 0.12);
+  --hairline-strong: rgb(255 243 251 / 0.24);
+  --glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 16px 40px -24px rgb(15 0 35 / 0.6);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--hairline);
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4rem;
   }
 
   body {
@@ -104,58 +110,26 @@
 
 /* --- Reusable design-system utilities --- */
 
-/* Frosted glass card. --mx/--my are set by useGlassSheen for a soft pointer highlight. */
+/* Frosted glass card: one translucent surface, a hairline, a soft neutral shadow. */
 @utility surface {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background-image: linear-gradient(
-    135deg,
-    rgb(255 255 255 / 0.14),
-    rgb(255 255 255 / 0.05) 60%,
-    rgb(255 255 255 / 0.08)
-  );
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--border);
+  background-color: rgb(255 255 255 / 0.07);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--hairline);
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(
-      380px circle at var(--mx, -500px) var(--my, -500px),
-      rgb(255 255 255 / 0.14),
-      transparent 50%
-    );
-  }
 }
 
-@utility glow-hover {
-  transition:
-    box-shadow 300ms ease,
-    border-color 300ms ease,
-    transform 300ms ease;
+/* Hover for cards: the hairline brightens a step, nothing glows or moves. */
+@utility surface-hover {
+  transition: border-color var(--dur-fast) var(--ease);
   &:hover {
-    border-color: color-mix(in oklab, var(--primary) 60%, var(--border));
-    box-shadow: var(--glass-shadow), var(--glow-pink);
+    border-color: var(--hairline-strong);
   }
 }
 
-/* Frosted floating pill for the nav and its mobile menu. */
-@utility glass-pill {
-  background-color: rgb(60 20 100 / 0.32);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--border);
-  box-shadow: var(--glass-shadow);
-}
-
-/* Two intertwined wavy strands (a stretched double helix), coloured by the
-   element's background and drifting slowly downwards. */
+/* A static double-helix strand, coloured by the element's background. */
 @utility helix-line {
   --helix: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 32' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M7 0C14 8 14 8 7 16S0 24 7 32'/%3E%3Cpath d='M7 0C0 8 0 8 7 16S14 24 7 32' opacity='.55'/%3E%3C/svg%3E");
   -webkit-mask-image: var(--helix);
@@ -164,85 +138,20 @@
   mask-size: 14px 32px;
   -webkit-mask-repeat: repeat-y;
   mask-repeat: repeat-y;
-  animation: helix-drift 3s linear infinite;
-}
-
-@keyframes helix-drift {
-  to {
-    -webkit-mask-position: 0 32px;
-    mask-position: 0 32px;
-  }
-}
-
-@utility glow-text {
-  text-shadow: 0 0 36px rgb(255 80 180 / 0.55);
-}
-
-@utility gradient-line {
-  background-image: var(--gradient-accent);
-}
-
-@utility gradient-text {
-  background-image: var(--gradient-accent);
-  background-clip: text;
-  color: transparent;
 }
 
 /* Fade-up reveal on scroll */
 @utility reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(8px);
   transition:
-    opacity 500ms ease,
-    transform 500ms ease;
+    opacity 400ms var(--ease),
+    transform 400ms var(--ease);
 }
 
 @utility reveal-in {
   opacity: 1;
   transform: none;
-}
-
-@utility marquee-track {
-  animation: marquee 42s linear infinite;
-  &:hover {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@utility dash-flow {
-  stroke-dasharray: 4 5;
-  animation: dash 1.6s linear infinite;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: -18;
-  }
-}
-
-@utility status-dot {
-  animation: status-pulse 2s ease-in-out infinite;
-}
-
-@keyframes status-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--status) 60%, transparent);
-  }
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 0 5px color-mix(in oklab, var(--status) 0%, transparent);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

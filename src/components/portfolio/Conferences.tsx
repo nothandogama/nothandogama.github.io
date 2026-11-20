@@ -11,9 +11,9 @@ export default function Conferences() {
           const Icon = i % 2 === 0 ? Presentation : Microscope;
           return (
             <Reveal key={c.title} delay={i * 80}>
-              <div className="surface glow-hover h-full p-6">
-                <Icon className="h-4 w-4 text-primary" />
-                <h3 className="mt-3 font-mono text-sm">{c.title}</h3>
+              <div className="surface h-full p-6">
+                <Icon className="h-4 w-4 text-faint" strokeWidth={1.5} />
+                <h3 className="mt-4 text-base font-medium">{c.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
               </div>
             </Reveal>
